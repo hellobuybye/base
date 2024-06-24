@@ -1,0 +1,63 @@
+
+server:
+  port: 9090
+
+# jwt:
+#   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+
+# logging:
+#   config: classpath:logback-api.xml
+
+mybatis:
+  type-aliases-package: com.cyh.base.**.dto
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+
+spring :
+  application:
+    name: base
+
+  profiles:
+    active:
+      - local
+    group:
+      "local": "local"
+      "dev": "dev"
+      "stg": "stg"
+      "prd": "prd"
+#   mvc:
+#     view:
+# #      prefix: /WEB-INF/view/
+#       suffix: .html
+---
+
+# 로컬세팅
+spring :
+  config:
+    activate:
+      on-profile:
+        - local
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+#   datasource :
+#       driver-class-name : com.mysql.cj.jdbc.Driver
+#       url : jdbc:mysql://localhost:3306/yh
+#       username : user
+#       password : 1234
+
+---
+
+
+
+
+
+
+
