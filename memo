@@ -1,8 +1,37 @@
-사용 라이브러리
+# 사용 라이브러리
 
-vue-router
-vue-tree-list
-vuetify
-axios
-bootstrap
-bootstrap-vue
+  vue-router
+  vue-tree-list
+  vuetify
+  axios
+  bootstrap
+  bootstrap-vue
+
+
+# VSCode setting
+
+  1. extention 설치
+  - spring 
+  - java extention
+  - git history
+
+  - vetur
+  - vue 3 snippets
+  - html css support
+
+
+  2. java configure 변경 : java 17 
+
+# vue 설치
+  1. node설치 (npm)
+  2. vue.js 설치
+    npm install -g @vue/cli
+
+
+# vue 프로젝트 생성
+  vue create {projectName}
+  (vue create frontvue)
+
+# vue 서버 실행
+  cd {projectName}
+  npm run serve
