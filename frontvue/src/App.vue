@@ -1,28 +1,27 @@
 <template>
-  <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"/> -->
-    <commHeader/>
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <commLeft/>
-    <commFooter/>
-  </div>
+  <commHeader/>
+  <commNav/>
+  <!-- <commLeft/> -->
+  
+  <router-view/>
 
+  <commFooter/>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 
 import commHeader from './components/common/commHeader.vue'
-import commLeft from './components/common/commLeft.vue'
+import commNav from './components/common/commNav.vue'
+// import commLeft from './components/common/commLeft.vue'
 import commFooter from './components/common/commFooter.vue'
 
 export default {
   name: 'App',
-  components: {
-    // HelloWorld,
+  components: {    
 
     commHeader,
-    commLeft,
+    commNav,
+    // commLeft,
     commFooter
 
   }
@@ -36,6 +35,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
 </style>

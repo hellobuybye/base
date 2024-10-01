@@ -1,38 +1,80 @@
-# 진행 목차
-1. 게시판 만들기
-( https://blog.naver.com/masichyun77/222440885802 )
 
+# 진행 기록
+
+  1. 게시판 만들기
+  ( https://blog.naver.com/masichyun77/222440885802 )
+
+
+# 문제 해결 기록
+
+  1. vscode terminal(power shell) script 파일 실행 오류 발생
+
+    권한 변경 처리함.
+    - 권한 확인 : 
+        get-ExecutionPolicy
+    - 권한 변경 : 
+        Set-ExecutionPolicy RemoteSigned
+        Y
+
+  2. node_modules 디렉토리가 없거나 문제 있음
+    
+    - node_mudule 폴더 삭제
+    - 재설치 : 
+        npm i
+
+  3. vue add router 실행시 오류 발생
+    vue프로젝트 재생성으로 해결
 
 
 # 사용 라이브러리
 
-  vue-router
+  vue-router      
+    npm i vue-router
+    vue add router
   vue-tree-list
-  vuetify
-  axios
+  
+  axios : js http통신 라이브러리(백엔드 데이터 통신때 필요)
+    npm i axios
   bootstrap
   bootstrap-vue
+
+  
 
 
 # VSCode setting
 
   1. extention 설치
-  - spring 
-  - java extention
-  - git history
+    - spring 
+    - java extention
+    - git history
 
-  - vetur
-  - vue 3 snippets
-  - html css support
+    
+    - Vue - Official : vue 코드 지원, 하이라이팅
+    - Vue 3 snippets : .vue 파일 생성시 초기구성 코드
+    - Vue Peek : Vue 프로젝트 내에서 참조되는 템플릿이나 모듈을 빠르게 추적( css 포함)      
+    - vuetify-vscode
+    - (크롬확장) Vue.js devtools : 크롬에서 Vue 디버깅 가능하도록 함
+      ( https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
 
+    
+    - html css support
+    
+    (설치 안한 extention)
+      - Live Server : 실시간 개발화면 보기 가능. 노트북으로 작업할때 필요할 듯 함
+      - Vetur : .vue 파일의 코드 하이라이팅 <==지원종료됨.
+      - Volar : Vetur 대안이지만 "Vue - Official"로 대체함
+      - DotENV : .ENV 파일의 코드 하이라이팅
+      - Auto Close Tag
+      - Auto Rename Tag
+      - Indent-rainbow : 다중 태그 색깔로 구분
 
   2. java configure 변경 : java 17 
 
-# vue 설치
-  1. node설치 (npm)
-  2. vue.js 설치
+  3. node 설치  
+    ( https://nodejs.org/en )
+  
+  4. vue 설치  
     npm install -g @vue/cli
-
 
 # vue 프로젝트 생성
   vue create {projectName}

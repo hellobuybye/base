@@ -50,7 +50,7 @@ export default{
     top:0px; 
     left:0px; 
     /* width:250px;  */
-    width:50px; 
+    width:300px; 
     height:1000px; 
     background:rgba(255,98,124,0.6); 
     padding:40px 0; 
