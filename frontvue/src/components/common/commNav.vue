@@ -1,10 +1,15 @@
 <template>
 	
     <nav>
-		<router-link to="/">Home</router-link> |
+		<!-- <router-link to="/">Home</router-link> |
 		<router-link to="/about">About</router-link> |
-		<router-link to="/menu1">메뉴1</router-link> |
-		<router-link to="/menu2">메뉴2</router-link>
+		<router-link to="/labs">실험실</router-link> |
+		<router-link to="/menu1">메뉴1</router-link> | 
+		<router-link to="/menu2">메뉴2</router-link> -->
+
+		<router-link v-for="menu of menuList" :key="menu.id" :to="`${menu.link}`" >{{ menu.title }} | </router-link>		
+		
+		
 	</nav>
 	
 </template>
@@ -13,13 +18,41 @@
 export default{
     name:'commNav',
     data() {
+		return{
+			menuList : [{
+				id : 0,
+				order : 1,
+				title : "Home",
+				link : "/"
+			}, {
+				id : 1,
+				order : 2,
+				title : "About",
+				link : "/about"
+			}, {
+				id : 2,
+				order : 3,
+				title : "labs",
+				link : "/labs"
+			}, {
+				id : 3,
+				order : 4,
+				title : "Menu1",
+				link : "/menu1"
+			}, {
+				id : 4,
+				order : 5,
+				title : "Menu2",
+				link : "/menu2"
+			}]
+		}
         
     },
     methods: {
         
     },
     created() {
-        
+        this.menuList;
     },
 }
 
