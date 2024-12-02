@@ -1,22 +1,13 @@
 <template>
-    <div class='commLeft'>
-        <ul>
-            <li id='logo'>
-                <div>Inventory</div>
-                <div>Manager</div>
-            </li>
-            <li>HOME</li>
-            <li>MANAGER</li>
-            <li>STATE</li>
-            <li>REGISTER</li>
-            <li id="company">
-                <div>Welcomt to Inventory</div>
-                <div>Seoul Gangnam <br> ... </div>
-                <div>@copyright demnodey</div>
-            </li>
+    <aside class='commLeft'>
+        <span class="first-depth" href="#">Board</span>
+        <ul class="second-depth">
+            <li class="second-depth"><a href="#"> test 1</a></li>
+            <li class="second-depth"><a href="#"> test 2</a></li>
+            <li class="second-depth"><a href="#"> test 3</a></li>
+            <li class="second-depth"><a href="#"> test 4</a></li>
         </ul>
-        <img id="left_btn" @click="toggle" src="../../assets/logo.png"  width="50">
-    </div>
+    </aside>
 </template>
 
 <script>
@@ -43,25 +34,54 @@ export default{
 </script>
 
 <style>
-  a{color:black}
-  a:hover{color:rgb(255,98,124);}
-  .commLeft{
-    position:fixed; 
-    top:0px; 
-    left:0px; 
-    /* width:250px;  */
-    width:300px; 
-    height:1000px; 
-    background:rgba(255,98,124,0.6); 
-    padding:40px 0; 
-    overflow: hidden
-  }
-  .commLeft ul {padding: 0 30px}
-  .commLeft ul li { font-size:25px;  height:75px;} 
-  .commLeft ul li#logo {font-family: 'Passion One', cursive; font-size:50px; height:170px;}
-  .commLeft ul li#logo div {line-height: 0.8}
-  .commLeft ul li#company {font-size:16px; margin-top:150px; }
-  #left_btn {position:fixed; top:495px; left:-60px; cursor:pointer}
+ 
+
+.commLeft {
+  width: 200px;
+  background-color: #ffffffdc;
+  color: #ecf0f1;
+  padding: 15px;
+  border-right: 1px sox rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* 스크롤 지원 */
+}
+
+/* .commLeft a {  
+  font-weight: bold;
+} */
+.commLeft .first-depth {
+    display: block;
+    padding: 10px 20px;
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: bold;
+    
+}
+
+.commLeft ul {    
+    /* list-style: none; */
+    padding: 0;
+}
+
+.commLeft a:hover {
+  background-color: #42b883;
+}
+
+.second-depth li{
+  margin-left: 20px;
+}
+
+.second-depth li a {
+  color: #285b7e;
+  font-size: 14px;
+  padding: 8px 0px;
+  display: block;
+  text-decoration: none;
+}
+
+.second-depth li a:hover {
+  background-color: #42b883;
+}
+
 </style>
 
 

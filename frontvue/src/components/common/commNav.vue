@@ -7,7 +7,7 @@
 		<router-link to="/menu1">메뉴1</router-link> | 
 		<router-link to="/menu2">메뉴2</router-link> -->
 
-		<router-link v-for="menu of menuList" :key="menu.id" :to="`${menu.link}`" >{{ menu.title }} | </router-link>		
+		<router-link v-for="menu of menuList" :key="menu.id" :to="`${menu.link}`" >{{ menu.title }}</router-link>		
 		
 		
 	</nav>
@@ -32,16 +32,21 @@ export default{
 			}, {
 				id : 2,
 				order : 3,
-				title : "labs",
+				title : "Labs",
 				link : "/labs"
 			}, {
 				id : 3,
 				order : 4,
-				title : "Menu1",
-				link : "/menu1"
+				title : "Board",
+				link : "/board"
 			}, {
 				id : 4,
 				order : 5,
+				title : "Menu1",
+				link : "/menu1"
+			}, {
+				id : 5,
+				order : 6,
 				title : "Menu2",
 				link : "/menu2"
 			}]
@@ -74,6 +79,12 @@ export default{
 	nav a {
 		font-weight: bold;
 		color: #2c3e50;
+	}
+
+	nav a:not(:last-child)::after {
+	content: "|"; /* 구분 기호 */
+	color: #aaa;
+	margin: 0 10px;
 	}
 
 	nav a.router-link-exact-active {

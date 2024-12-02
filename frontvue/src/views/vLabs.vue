@@ -14,6 +14,9 @@
             </div>
         </div>
 
+
+
+        
         <div>
             <h3>input 연습</h3>
             <input type="text" v-model="inputText">
