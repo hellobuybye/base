@@ -33,9 +33,8 @@ export default{
 
 </script>
 
-<style>
+<style scoped>
  
-
 .commLeft {
   width: 200px;
   background-color: #ffffffdc;

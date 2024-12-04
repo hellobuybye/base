@@ -42,7 +42,7 @@ export default{
 
 </script>
 
-<style>
+<style scoped>
   /* a{color:black}
   a:hover{color:rgb(255,98,124);}
   .commLeft{

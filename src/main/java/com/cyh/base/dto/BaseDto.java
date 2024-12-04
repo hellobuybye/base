@@ -24,7 +24,8 @@ public class BaseDto implements Serializable  {
     private Integer pageCalc;       //페이징에 의한 db 데이터 시작 인덱스값
 
     private String regId;
-    private Date regDt;
+    // private Date regDt;
+    private String regDt;
     private String modId;
     private Date modDt;
 

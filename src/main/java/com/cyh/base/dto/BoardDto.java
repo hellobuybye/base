@@ -19,13 +19,10 @@ public class BoardDto extends BaseDto {
     private String code;
     // @NotEmpty/*(groups = SampleValidates.Group1.class, message = "test message 22")*/
     private String subject;
-    private String cont;
-    private String id;
+    private String content;
 
     private MultipartFile[] files;
     private List<FileDto> fileList;
-
-
 
     private String keyword;
 

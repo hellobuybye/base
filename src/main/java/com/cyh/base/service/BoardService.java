@@ -1,49 +1,52 @@
-// package com.cyh.base.service;
+package com.cyh.base.service;
 
-// import com.cyh.base.dto.BoardDto;
-// import com.cyh.base.dto.FileDto;
-// import com.cyh.base.mapper.BoardMapper;
+import com.cyh.base.dto.BoardDto;
+import com.cyh.base.dto.FileDto;
+import com.cyh.base.mapper.BoardMapper;
+
 // import com.cyh.base.mapper.FileMapper;
-// import lombok.RequiredArgsConstructor;
-// import lombok.extern.slf4j.Slf4j;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Service;
-// import org.springframework.transaction.annotation.Transactional;
-// import org.springframework.web.multipart.MultipartFile;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-// import java.io.File;
-// import java.util.List;
-// import java.util.Random;
-// import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+// import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 // @RequiredArgsConstructor
-// @Service
-// @Slf4j
-// public class BoardService {
+@Service
+@Slf4j
+public class BoardService {
 
-//     @Autowired
-//     private BoardMapper boardMapper;
-//     @Autowired
-//     private FileMapper fileMapper;
+    @Autowired
+    private BoardMapper boardMapper;
 
-//     public List<BoardDto> getBoardList(BoardDto boardDto) throws Exception  {
+    // @Autowired
+    // private FileMapper fileMapper;
 
-//         if (boardDto.getRowsPerPage() < 1) {
-//             throw new Exception();
-//         }
-//         if (boardDto.getPageIdx() < 1) {
-//             throw new Exception();
-//         }
+    public List<BoardDto> getBoardList(BoardDto boardDto) throws Exception  {
 
-//         return boardMapper.getBoardList(boardDto);
+        if (boardDto.getRowsPerPage() < 1) {
+            throw new Exception();
+        }
+        if (boardDto.getPageIdx() < 1) {
+            throw new Exception();
+        }
 
-//     }
+        return boardMapper.getBoardList(boardDto);
 
-//     public int getBoardListCount(BoardDto boardDto) throws Exception  {
+    }
 
-//         return boardMapper.getBoardListCount(boardDto);
+    public Integer getBoardListCount(BoardDto boardDto) throws Exception  {
 
-//     }
+        return boardMapper.getBoardListCount(boardDto);
+
+    }
 
 //     @Transactional
 //     public void insertBoard(BoardDto boardDto) throws Exception  {
@@ -116,4 +119,4 @@
 
 //     }
 
-// }
+}

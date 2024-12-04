@@ -68,7 +68,7 @@ export default{
       changePage(page){
 
         if(page > 0 && page <= this.totalPage){
-          this.$router.push({query: { page: page } } );
+          
           this.$emit("change-page", page); // 상위컴포넌트로 컨트롤 넘김          
         }
 
@@ -81,7 +81,7 @@ export default{
 
 </script>
 
-<style>
+<style scoped>
 .pagination {
   display: flex;
   justify-content: center;

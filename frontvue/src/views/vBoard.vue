@@ -38,21 +38,22 @@ export default{
 	},
     data() {
         return {
-            postList : [
+            // postList : [
 
-				{ pId: 0, title: "게시판 샘플 1", writter: "홍길동", pDate: "2024-10-15" },
-				{ pId: 1, title: "게시판 샘플 2", writter: "이몽룡", pDate: "2024-10-16" },
-				{ pId: 2, title: "게시판 샘플 3", writter: "춘향", pDate: "2024-10-17" },
-				{ pId: 3, title: "게시판 샘플 4", writter: "박혁거세", pDate: "2024-10-18" },
+			// 	{ idx: 0, subject: "게시판 샘플 1", regId: "홍길동", regDt: "2024-10-15" },
+			// 	{ pId: 1, title: "게시판 샘플 2", writter: "이몽룡", pDate: "2024-10-16" },
+			// 	{ pId: 2, title: "게시판 샘플 3", writter: "춘향", pDate: "2024-10-17" },
+			// 	{ pId: 3, title: "게시판 샘플 4", writter: "박혁거세", pDate: "2024-10-18" },
 
-			],
+			// ],
+            postList : [],
             
             totalPage:10,
             currentPage: 1,
         }
     },
 	setup(){		
-       
+       // setup에서 선언된 모든 데이터들은 template에서 사용 가능하다.
 
 	},
     computed:{
@@ -70,16 +71,39 @@ export default{
     methods: {
         doPaging(page){
             this.currentPage = page;
+
+            this.getPostList();
+            this.$router.push({query: { page: page } } );
+        },
+
+        getPostList(){
+            const URL = "http://localhost:9090/api/board/getList";
+            this.$axios
+                .get(URL,{
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+                )
+                .then( res => {
+                    console.log('getList result : ', res);
+                    this.postList = res.data.body;
+
+                });
+
         }
     },
     created() {
         
     },
+    mounted(){
+        this.getPostList();
+    },
 }
 
 </script>
 
-<style>
+<style scoped>
 
 .title {
 	text-align: center;

@@ -7,16 +7,16 @@
         <td>2024-11-28</td>
     </tr> -->
     <tr>
-        <td>{{ post.pId }}</td>
-        <td><a href="#">{{ post.title }}</a></td>
-        <td>{{ post.writter }}</td>
-        <td>{{ post.pDate }}</td>        
+        <td>{{ post.idx }}</td>
+        <td><a href="#">{{ post.subject }}</a></td>
+        <td>{{ post.regId }}</td>
+        <td>{{ post.regDt }}</td>        
     </tr>
     
 
 </template>
 
-<script>
+<script scoped>
 export default{
     name:'vPost',
 
