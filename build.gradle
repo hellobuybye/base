@@ -44,6 +44,9 @@ dependencies {
 	// DB - postgresql
 	implementation 'org.postgresql:postgresql:42.6.0'
 
+	// DB - log4j
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	
     // Mybatis
 	// implementation 'org.mybatis:mybatis:3.5.17'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
@@ -58,7 +61,7 @@ dependencies {
     // 개발
     // developmentOnly("org.springframework.boot:spring-boot-devtools")
 
-
+	
 
 
 	// 기본설정

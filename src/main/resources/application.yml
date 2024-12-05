@@ -49,11 +49,16 @@ spring :
   #   restart:
   #     enabled: true
 
-  datasource :
-      driver-class-name : org.postgresql.Driver
-      url : jdbc:postgresql://34.41.156.106:5432/postgres
-      username : "postgres"
-      password : "rhdiddl03"
+  # datasource :
+  #     driver-class-name : org.postgresql.Driver
+  #     url : jdbc:postgresql://34.41.156.106:5432/postgres
+  #     username : "postgres"
+  #     password : "rhdiddl03"
+  datasource :      
+        driver-class-name : net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        url : jdbc:log4jdbc:postgresql://34.41.156.106:5432/postgres
+        username : "postgres"
+        password : "rhdiddl03"
 
 ---
 
