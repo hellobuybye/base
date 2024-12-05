@@ -1,6 +1,6 @@
 package com.cyh.base.config;
 
-// import com.cyh.base.intercepter.ControllerInterceptor;
+import com.cyh.base.intercepter.ControllerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -39,10 +39,10 @@ public class WebConfig implements WebMvcConfigurer {
             //             .allowCredentials(true); // 쿠키 전송 허용
     }
 
-//     @Override
-//     public void addInterceptors(InterceptorRegistry registry) {
-// //        registry.addInterceptor(new ControllerInterceptor()).excludePathPatterns("/static/**", "/favicon.ico");
-//     }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+       registry.addInterceptor(new ControllerInterceptor()).excludePathPatterns("/static/**", "/favicon.ico");
+    }
 
 
 }
