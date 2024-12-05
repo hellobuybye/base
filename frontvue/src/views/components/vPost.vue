@@ -7,7 +7,7 @@
         <td>2024-11-28</td>
     </tr> -->
     <tr>
-        <td>{{ post.idx }}</td>
+        <td>{{ post.rowNum }}</td>
         <td><a href="#">{{ post.subject }}</a></td>
         <td>{{ post.regId }}</td>
         <td>{{ post.regDt }}</td>        

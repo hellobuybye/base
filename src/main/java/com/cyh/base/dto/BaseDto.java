@@ -18,10 +18,12 @@ import java.util.Date;
 public class BaseDto implements Serializable  {
 
     private Integer rowsPerPage = 10;
-    private Integer pageIdx = 1;
+    private Integer page = 1;
 
     private Integer pageSize = 10;
-    private Integer pageCalc;       //페이징에 의한 db 데이터 시작 인덱스값
+    private Integer pageCalc;       //페이징에 의한 db 데이터 시작 인덱스값(offset값)
+
+    private String rowNum;
 
     private String regId;
     // private Date regDt;
@@ -31,7 +33,7 @@ public class BaseDto implements Serializable  {
 
 
     public Integer getPageCalc() {
-        setPageCalc( this.rowsPerPage * this.pageIdx );
+        setPageCalc( this.rowsPerPage * (this.page - 1) );
         return this.pageCalc;
     }
 

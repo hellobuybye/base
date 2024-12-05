@@ -1,14 +1,13 @@
-// package com.cyh.base;
+package com.cyh.base;
 
-// import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// // @SpringBootTest
-// // @SpringBootTest(classes = BaseApplication.class)
-// class BaseApplicationTests {
+@SpringBootTest
+class BaseApplicationTests {
 
-// 	@Test
-// 	void contextLoads() {
-// 	}
+	@Test
+	void contextLoads() {
+	}
 
-// }
+}

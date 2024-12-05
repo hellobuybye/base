@@ -34,7 +34,7 @@ public class BoardService {
         if (boardDto.getRowsPerPage() < 1) {
             throw new Exception();
         }
-        if (boardDto.getPageIdx() < 1) {
+        if (boardDto.getPage() < 1) {
             throw new Exception();
         }
 

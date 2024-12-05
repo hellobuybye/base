@@ -48,7 +48,7 @@ export default{
 			// ],
             postList : [],
             
-            totalPage:10,
+            totalPage:0,
             currentPage: 1,
         }
     },
@@ -73,7 +73,7 @@ export default{
             this.currentPage = page;
 
             this.getPostList();
-            this.$router.push({query: { page: page } } );
+            this.$router.push({query: { page: this.currentPage } } );
         },
 
         getPostList(){
@@ -83,11 +83,15 @@ export default{
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                }
-                )
+                    params:{
+                        page:this.currentPage
+                    },
+                })
                 .then( res => {
                     console.log('getList result : ', res);
                     this.postList = res.data.body;
+
+                    this.totalPage = res.data.pagingInfo.finalPage;
 
                 });
 

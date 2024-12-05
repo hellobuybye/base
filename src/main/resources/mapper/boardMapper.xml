@@ -2,16 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cyh.base.mapper.BoardMapper">
 
+
+    <sql id="prePaging">
+        SELECT * FROM (
+            SELECT 
+                ROW_NUMBER() OVER() AS row_num, A.*
+            FROM (
+    </sql>
+
+    <sql id="postPaging">
+            ) A
+        ) AA        
+        LIMIT #{rowsPerPage} OFFSET #{pageCalc}    
+    </sql>
+    
+
     <!-- 게시글 조회 -->
     <select id="getBoardList" resultType="com.cyh.base.dto.BoardDto">
-        SELECT idx, subject, content, reg_id, reg_dt 
-        FROM board
+    <include refid="prePaging" />
+
+        SELECT 
+            idx,
+            subject,
+            content,
+            reg_id,
+            reg_dt 
+        FROM
+            board
+        <where>
+            
+        </where>
+        ORDER BY reg_dt DESC
+
+    <include refid="postPaging" />
     </select>
 
     <select id="getBoardListCount" resultType="Integer">
         SELECT 
             count(*)
-        FROM board
+        FROM 
+            board
     </select>
 
 

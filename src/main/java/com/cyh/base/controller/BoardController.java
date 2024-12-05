@@ -50,56 +50,15 @@ public class BoardController {
 
 
         ApiResponse<List<BoardDto>> returnData = new ApiResponse<>();
-
-        // /* 임시코드 S */
-        // List<BoardDto> tempList = new ArrayList<>();
-        // BoardDto dto = new BoardDto();
-        // dto.setIdx(0);
-        // dto.setSubject("게시판 샘플 1");
-        // dto.setRegId("홍길동");
-        // dto.setRegDt("2024-10-15");
-        // tempList.add(dto);
-
-        // dto = new BoardDto();
-        // dto.setIdx(1);
-        // dto.setSubject("게시판 샘플 2");
-        // dto.setRegId("춘향");
-        // dto.setRegDt("2024-03-24");
-        // tempList.add(dto);
-        
-        // dto = new BoardDto();
-        // dto.setIdx(2);
-        // dto.setSubject("게시판 샘플 3");
-        // dto.setRegId("박혁거세");
-        // dto.setRegDt("2024-04-22");
-        // tempList.add(dto);
-
-        // dto = new BoardDto();
-        // dto.setIdx(3);
-        // dto.setSubject("게시판 샘플 4");
-        // dto.setRegId("이몽룡");
-        // dto.setRegDt("2024-12-26");
-        // tempList.add(dto);
-
-        // dto = new BoardDto();
-        // dto.setIdx(4);
-        // dto.setSubject("게시판 샘플 5");
-        // dto.setRegId("최윤환");
-        // dto.setRegDt("2024-03-24");
-        // tempList.add(dto);
-
-        // returnData.setBody(tempList);
-        // /* 임시코드 E */
-
         
         returnData.setBody(boardService.getBoardList(boardDto));
-        // returnData.setPagingInfo(
-        //         PagingInfo.builder()
-        //             .totalCount(boardService.getBoardListCount(boardDto))
-        //             .rowsPerPage(boardDto.getRowsPerPage())
-        //             .pageSize(boardDto.getPageSize())
-        //             .pageIdx(boardDto.getPageIdx())
-        //             .build());
+        returnData.setPagingInfo(
+                PagingInfo.builder()
+                    .totalCount(boardService.getBoardListCount(boardDto))
+                    .rowsPerPage(boardDto.getRowsPerPage())
+                    .pageSize(boardDto.getPageSize())
+                    .page(boardDto.getPage())
+                    .build());
 
         return ResponseEntity.ok().body(returnData);
     }
