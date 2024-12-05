@@ -19,15 +19,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class MainController {
 
-    @GetMapping("/main")
-    public String getMainPage(Model model,
-                               @RequestParam(value = "error", required = false) String error,
-                               @RequestParam(value = "exception", required = false) String exception) {
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
-        return "main.html";
-    }
-
     @GetMapping("/")
     public String getIndexPage(Model model,
                               @RequestParam(value = "error", required = false) String error,
@@ -37,4 +28,5 @@ public class MainController {
         // return "vue/index";
         return "index.html";
     }
+    
 }
