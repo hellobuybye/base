@@ -14,9 +14,9 @@ public interface BoardMapper {
 
 	public Integer getBoardListCount(BoardDto boardDto) throws Exception;
 
-	// public void insertBoard(BoardDto boardDto) throws Exception;
+	public BoardDto getBoardDetail(BoardDto boardDto) throws Exception;
 
-	// public BoardDto getBoardView(BoardDto boardDto) throws Exception;
+	// public void insertBoard(BoardDto boardDto) throws Exception;
 
 	// public void updateBoard(BoardDto boardDto) throws Exception;
 

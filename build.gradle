@@ -59,7 +59,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
 
     // 개발
-    // developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 	
 

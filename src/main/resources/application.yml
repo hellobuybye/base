@@ -43,11 +43,11 @@ spring :
       on-profile:
         - local
 
-  # devtools:
-  #   livereload:
-  #     enabled: true
-  #   restart:
-  #     enabled: true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
   # datasource :
   #     driver-class-name : org.postgresql.Driver

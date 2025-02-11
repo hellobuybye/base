@@ -17,7 +17,7 @@
     </sql>
     
 
-    <!-- 게시글 조회 -->
+    <!-- 게시글 목록 조회 -->
     <select id="getBoardList" resultType="com.cyh.base.dto.BoardDto">
     <include refid="prePaging" />
 
@@ -45,6 +45,20 @@
     </select>
 
 
+    <select id="getBoardDetail" resultType="BoardDto">
+        SELECT 
+            idx,
+            subject,
+            content,
+            reg_id,
+            reg_dt 
+        FROM 
+            board
+        <where>
+            idx = #{idx}
+        </where>
+
+    </select>
     
 
 </mapper>

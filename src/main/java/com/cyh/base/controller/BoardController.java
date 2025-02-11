@@ -63,6 +63,34 @@ public class BoardController {
         return ResponseEntity.ok().body(returnData);
     }
 
+    @PostMapping("/api/board/getDetail")
+    @ResponseBody
+    public ResponseEntity<?> getBoardView(HttpServletRequest request,
+                                    @RequestBody BoardDto boardDto,
+                                    //   @PathVariable(name = "idx") String idx,
+                                    Model model ) throws Exception {
+
+
+        ApiResponse<BoardDto> returnData = new ApiResponse<>();
+        returnData.setBody(boardService.getBoardDetail(boardDto));
+
+        return ResponseEntity.ok().body(returnData);
+    }
+
+    // @GetMapping("/api/board/view/{idx}")
+    // @ResponseBody
+    // public ResponseEntity<?> getBoardView(HttpServletRequest request
+    //                                       , BoardDto boardDto
+    //                                       , @PathVariable(name = "idx") String idx
+    //                                       , Model model ) throws Exception {
+
+
+    //     ApiResponse<BoardDto> returnData = new ApiResponse<>();
+    //     returnData.setBody(boardService.getBoardView(boardDto));
+
+    //     return ResponseEntity.ok().body(returnData);
+    // }
+
 //     @PostMapping(value="/api/board/write"
 // //            , consumes={MediaType.MULTIPART_FORM_DATA_VALUE
 // //                        , MediaType.APPLICATION_JSON_VALUE
@@ -91,19 +119,7 @@ public class BoardController {
 //     }
 
 
-//     @GetMapping("/api/board/view/{idx}")
-//     @ResponseBody
-//     public ResponseEntity<?> getBoardView(HttpServletRequest request
-//                                           , BoardDto boardDto
-//                                           , @PathVariable(name = "idx") String idx
-//                                           , Model model ) throws Exception {
-
-
-//         ApiResponse<BoardDto> returnData = new ApiResponse<>();
-//         returnData.setBody(boardService.getBoardView(boardDto));
-
-//         return ResponseEntity.ok().body(returnData);
-//     }
+    
 
 //     @PostMapping("/api/board/mod")
 //     @ResponseBody

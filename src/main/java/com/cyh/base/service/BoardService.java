@@ -48,6 +48,18 @@ public class BoardService {
 
     }
 
+    public BoardDto getBoardDetail(BoardDto boardDto) throws Exception {
+
+        BoardDto board = boardMapper.getBoardDetail(boardDto);
+
+        // FileDto fileDto = new FileDto();
+        // fileDto.setBoardIdx(board.getIdx());
+        // board.setFileList(fileMapper.getFileList(fileDto));
+
+        return board;
+
+    }
+
 //     @Transactional
 //     public void insertBoard(BoardDto boardDto) throws Exception  {
 
@@ -78,17 +90,7 @@ public class BoardService {
 
 //     }
 
-//     public BoardDto getBoardView(BoardDto boardDto) throws Exception  {
 
-//         BoardDto board = boardMapper.getBoardView(boardDto);
-
-//         FileDto fileDto = new FileDto();
-//         fileDto.setBoardIdx(board.getIdx());
-//         board.setFileList(fileMapper.getFileList(fileDto));
-
-//         return board;
-
-//     }
 
 //     public void updateBoard(BoardDto boardDto) throws Exception  {
 

@@ -28,6 +28,9 @@
   3. vue add router 실행시 오류 발생
     vue프로젝트 재생성으로 해결
 
+  4. 변경점이 적용 안되는 현상
+    - gradle clean, bootRun 실행
+    ( vscode 특성상 반영이 제대로 안되고있음 ) 
 
 # 사용 라이브러리
 
