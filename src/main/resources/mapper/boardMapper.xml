@@ -30,7 +30,7 @@
         FROM
             board
         <where>
-            
+            del_yn = 'N'
         </where>
         ORDER BY reg_dt DESC
 
@@ -56,9 +56,56 @@
             board
         <where>
             idx = #{idx}
+            AND del_yn = 'N'
         </where>
 
     </select>
+
+    <insert id="insertBoard" parameterType="BoardDto" useGeneratedKeys="true" keyProperty="idx">
+        INSERT INTO board 
+            (
+                idx,
+                subject, 
+                content, 
+                reg_id, 
+                reg_dt
+            )
+        VALUES
+            (
+                (SELECT COALESCE(MAX(idx), 1) + 1 FROM board),
+                #{subject},
+                #{content},
+                #{regId},
+                now() 
+            )
+        RETURNING idx
+        
+
+    </insert>
+
+    <update id="updateBoard" parameterType="BoardDto" useGeneratedKeys="true" keyProperty="idx">
+        UPDATE board SET        
+            subject = #{subject},
+            contents = #{content},
+            mod_id = #{modId},
+            mod_dt = now()
+        <where>
+            idx = #{idx}
+        </where>
+       
+        RETURNING idx
+
+    </update>
     
+    <update id="deleteBoard" parameterType="BoardDto">
+        UPDATE board SET        
+            del_yn = 'Y',
+            mod_id = #{modId},
+            mod_dt = now()
+        <where>
+            idx = #{idx}
+        </where>
+       
+    </update>
 
 </mapper>

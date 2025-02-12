@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-// import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -60,41 +60,10 @@ public class BoardService {
 
     }
 
-//     @Transactional
-//     public void insertBoard(BoardDto boardDto) throws Exception  {
+    @Transactional
+    public void insertBoard(BoardDto boardDto) throws Exception  {
 
-//         boardMapper.insertBoard(boardDto);
-
-//         for(MultipartFile file : boardDto.getFiles()) {
-//             if (!file.isEmpty()) {
-//                 String originalFileName = file.getOriginalFilename();
-
-// //                long saveFileNm = new Random(System.currentTimeMillis()).nextLong();
-// //                saveFileNm = saveFileNm == Long.MIN_VALUE ? 0 : saveFileNm;
-// //                saveFileNm = Math.abs(saveFileNm);
-//                 UUID uuid = UUID.randomUUID();
-//                 String saveFileNm = uuid.toString();
-
-//                 FileDto fileDto = new FileDto();
-//                 fileDto.setBoardIdx(boardDto.getIdx());
-//                 fileDto.setOrigFileNm(originalFileName);
-//                 fileDto.setSaveFileNm(saveFileNm);
-//                 fileMapper.insertFile(fileDto);
-
-//                 File destination = new File("D:/upload/" + saveFileNm);
-
-//                 file.transferTo(destination);
-
-//             }
-//         }
-
-//     }
-
-
-
-//     public void updateBoard(BoardDto boardDto) throws Exception  {
-
-//         boardMapper.updateBoard(boardDto);
+        boardMapper.insertBoard(boardDto);
 
 //         for(MultipartFile file : boardDto.getFiles()) {
 //             if (!file.isEmpty()) {
@@ -119,6 +88,70 @@ public class BoardService {
 //             }
 //         }
 
-//     }
+
+    }
+
+
+    @Transactional
+    public void updateBoard(BoardDto boardDto) throws Exception  {
+
+        boardMapper.updateBoard(boardDto);
+
+//         for(MultipartFile file : boardDto.getFiles()) {
+//             if (!file.isEmpty()) {
+//                 String originalFileName = file.getOriginalFilename();
+
+// //                long saveFileNm = new Random(System.currentTimeMillis()).nextLong();
+// //                saveFileNm = saveFileNm == Long.MIN_VALUE ? 0 : saveFileNm;
+// //                saveFileNm = Math.abs(saveFileNm);
+//                 UUID uuid = UUID.randomUUID();
+//                 String saveFileNm = uuid.toString();
+
+//                 FileDto fileDto = new FileDto();
+//                 fileDto.setBoardIdx(boardDto.getIdx());
+//                 fileDto.setOrigFileNm(originalFileName);
+//                 fileDto.setSaveFileNm(saveFileNm);
+//                 fileMapper.insertFile(fileDto);
+
+//                 File destination = new File("D:/upload/" + saveFileNm);
+
+//                 file.transferTo(destination);
+
+//             }
+//         }
+
+        
+    }
+
+    @Transactional
+    public void deleteBoard(BoardDto boardDto) throws Exception  {
+
+        boardMapper.updateBoard(boardDto);
+
+//         for(MultipartFile file : boardDto.getFiles()) {
+//             if (!file.isEmpty()) {
+//                 String originalFileName = file.getOriginalFilename();
+
+// //                long saveFileNm = new Random(System.currentTimeMillis()).nextLong();
+// //                saveFileNm = saveFileNm == Long.MIN_VALUE ? 0 : saveFileNm;
+// //                saveFileNm = Math.abs(saveFileNm);
+//                 UUID uuid = UUID.randomUUID();
+//                 String saveFileNm = uuid.toString();
+
+//                 FileDto fileDto = new FileDto();
+//                 fileDto.setBoardIdx(boardDto.getIdx());
+//                 fileDto.setOrigFileNm(originalFileName);
+//                 fileDto.setSaveFileNm(saveFileNm);
+//                 fileMapper.insertFile(fileDto);
+
+//                 File destination = new File("D:/upload/" + saveFileNm);
+
+//                 file.transferTo(destination);
+
+//             }
+//         }
+
+        
+    }
 
 }

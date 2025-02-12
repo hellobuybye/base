@@ -63,9 +63,9 @@ public class BoardController {
         return ResponseEntity.ok().body(returnData);
     }
 
-    @PostMapping("/api/board/getDetail")
+    @PostMapping("/api/board/getBoard")
     @ResponseBody
-    public ResponseEntity<?> getBoardView(HttpServletRequest request,
+    public ResponseEntity<?> getBoard(HttpServletRequest request,
                                     @RequestBody BoardDto boardDto,
                                     //   @PathVariable(name = "idx") String idx,
                                     Model model ) throws Exception {
@@ -91,50 +91,51 @@ public class BoardController {
     //     return ResponseEntity.ok().body(returnData);
     // }
 
-//     @PostMapping(value="/api/board/write"
-// //            , consumes={MediaType.MULTIPART_FORM_DATA_VALUE
-// //                        , MediaType.APPLICATION_JSON_VALUE
-// //            }
-//     )
-//     @ResponseBody
-//     public ResponseEntity<?> insertBoard(HttpServletRequest request
-//             , @RequestPart(value = "board") String boardString
-//             , @RequestPart(value = "files") MultipartFile[] files
-//                                          , Model model ) throws Exception {
-//         ObjectMapper objectMapper = new ObjectMapper();
-//         BoardDto boardDto = objectMapper.readValue(boardString, BoardDto.class);
-//         boardDto.setFiles(files);
+// @PostMapping(value="/api/board/insertBoard"
+//            , consumes={MediaType.MULTIPART_FORM_DATA_VALUE
+//                        , MediaType.APPLICATION_JSON_VALUE
+//            }
+// )
+    @PostMapping(value="/api/board/insertBoard")
+    @ResponseBody
+    public ResponseEntity<?> insertBoard(HttpServletRequest request,
+                                    @RequestBody BoardDto boardDto,
+            // , @RequestPart(value = "board") String boardString
+            // , @RequestPart(value = "files") MultipartFile[] files
+                                        Model model ) throws Exception {
+        // ObjectMapper objectMapper = new ObjectMapper();
+        // BoardDto boardDto = objectMapper.readValue(boardString, BoardDto.class);
+        // boardDto.setFiles(files);
 
-//         log.debug("test : " + boardDto.toString());
+        // log.debug("test : " + boardDto.toString());
 
-//         boardService.insertBoard(boardDto);
+        
+        ApiResponse<Integer> returnData = new ApiResponse<>();
+        boardService.insertBoard(boardDto);
+        returnData.setBody(boardDto.getIdx());
 
 
-
-//         ResponseEntity<?> returnData;
-
-
-//         returnData = ResponseEntity.ok().body("success");
-//         return returnData;
-//     }
+        return ResponseEntity.ok().body(returnData);
+        
+    }
 
 
     
 
-//     @PostMapping("/api/board/mod")
-//     @ResponseBody
-//     public ResponseEntity<?> modifyBoard(HttpServletRequest request,
-//                                          @RequestBody BoardDto boardDto,
-//                                          Model model ) throws Exception {
+    @PostMapping("/api/board/updateBoard")
+    @ResponseBody
+    public ResponseEntity<?> updateBoard(HttpServletRequest request,
+                                         @RequestBody BoardDto boardDto,
+                                         Model model ) throws Exception {
 
-//         boardService.updateBoard(boardDto);
+        ApiResponse<Integer> returnData = new ApiResponse<>();
+        boardService.updateBoard(boardDto);
+        returnData.setBody(boardDto.getIdx());
 
-//         ResponseEntity<?> returnData;
 
+        return ResponseEntity.ok().body(returnData);
 
-//         returnData = ResponseEntity.ok().body("success");
-//         return returnData;
-//     }
+    }
 
 
 //     @PostMapping("/api/file/upload")
@@ -164,4 +165,17 @@ public class BoardController {
 //         return returnData;
 //     }
 
+    @PostMapping("/api/board/deleteBoard")
+    @ResponseBody
+    public ResponseEntity<?> deleteBoard(HttpServletRequest request,
+                                         @RequestBody BoardDto boardDto,
+                                         Model model ) throws Exception {
+
+        ResponseEntity<?> returnData;
+
+        boardService.deleteBoard(boardDto);
+        
+        returnData = ResponseEntity.ok().body("success");
+        return returnData;
+    }
 }

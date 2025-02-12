@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 
 // import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -26,15 +29,35 @@ public class BaseDto implements Serializable  {
     private String rowNum;
 
     private String regId;
-    // private Date regDt;
-    private String regDt;
+    private Timestamp regDt;
+    private String regDtStr;
     private String modId;
-    private Date modDt;
+    // private Date modDt;
+    private Timestamp modDt;
+    private String modDtStr;
 
 
     public Integer getPageCalc() {
         setPageCalc( this.rowsPerPage * (this.page - 1) );
         return this.pageCalc;
     }
+
+    public void setRegDt(Timestamp regDt){
+        this.regDt = regDt;
+        
+        LocalDateTime dateTime = regDt.toLocalDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");        
+        this.regDtStr = dateTime.format(formatter);
+
+    }
+
+    public void setModDt(Timestamp modDt){
+        this.modDt = modDt;
+        
+        LocalDateTime dateTime = regDt.toLocalDateTime();        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");        
+        this.modDtStr = dateTime.format(formatter);
+    }
+    
 
 }

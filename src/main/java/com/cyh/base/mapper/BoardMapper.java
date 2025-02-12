@@ -16,9 +16,11 @@ public interface BoardMapper {
 
 	public BoardDto getBoardDetail(BoardDto boardDto) throws Exception;
 
-	// public void insertBoard(BoardDto boardDto) throws Exception;
+	public void insertBoard(BoardDto boardDto) throws Exception;
 
-	// public void updateBoard(BoardDto boardDto) throws Exception;
+	public void updateBoard(BoardDto boardDto) throws Exception;
+	
+	public void deleteBoard(BoardDto boardDto) throws Exception;
 
 
 }
