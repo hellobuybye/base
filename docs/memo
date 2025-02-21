@@ -32,6 +32,11 @@
     - gradle clean, bootRun 실행
     ( vscode 특성상 반영이 제대로 안되고있음 ) 
 
+  5. git repository 변경하게됨.
+    - git remote add origin https://github.com/hellobuybye/base.git
+    - git branch -M main
+    - git push -u origin main
+
 # 사용 라이브러리
 
   vue-router      
@@ -65,7 +70,7 @@
     
     - html css support
     
-    (설치 안한 extention)
+    (설치 안한 추천 extention)
       - Live Server : 실시간 개발화면 보기 가능. 노트북으로 작업할때 필요할 듯 함
       - Vetur : .vue 파일의 코드 하이라이팅 <==지원종료됨.
       - Volar : Vetur 대안이지만 "Vue - Official"로 대체함
@@ -87,5 +92,5 @@
   (vue create frontvue)
 
 # vue 서버 실행
-  cd {projectName}
+  cd {projectName}  (프로젝트 root 경로상태로 변경)
   npm run serve
