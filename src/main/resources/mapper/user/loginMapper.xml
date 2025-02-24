@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyh.base.mapper.UserMapper">
+
+
+    <sql id="prePaging">
+        SELECT * FROM (
+            SELECT 
+                ROW_NUMBER() OVER() AS row_num, A.*
+            FROM (
+    </sql>
+
+    <sql id="postPaging">
+            ) A
+        ) AA        
+        LIMIT #{rowsPerPage} OFFSET #{pageCalc}    
+    </sql>
+    
+
+    <!-- 로그인유저 조회 -->
+    <select id="selectLoginUser" parameterType="String">
+    
+
+        SELECT 
+            idx,
+            subject,
+            content,
+            reg_id,
+            reg_dt 
+        FROM
+            board
+        <where>
+            del_yn = 'N'
+        </where>
+        ORDER BY reg_dt DESC
+
+    
+    </select>
+
+    
+
+</mapper>

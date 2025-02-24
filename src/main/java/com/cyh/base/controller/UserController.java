@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
-public class MemberController {
+public class UserController {
 
     // @Autowired
     // private MemberService memberService;

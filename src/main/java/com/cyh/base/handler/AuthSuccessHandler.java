@@ -1,34 +1,34 @@
-package com.cyh.base.handler;
+// package com.cyh.base.handler;
 
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
+// import lombok.RequiredArgsConstructor;
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+// import org.springframework.stereotype.Component;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.time.LocalDateTime;
+// import jakarta.servlet.ServletException;
+// import jakarta.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletResponse;
+// import java.io.IOException;
+// import java.time.LocalDateTime;
 
-@RequiredArgsConstructor
-@Component
-public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+// @RequiredArgsConstructor
+// @Component
+// public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
 
 
-    @Override
-    public void onAuthenticationSuccess(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Authentication authentication) throws IOException, ServletException {
+//     @Override
+//     public void onAuthenticationSuccess(
+//             HttpServletRequest request,
+//             HttpServletResponse response,
+//             Authentication authentication) throws IOException, ServletException {
 
-        // memberRepository.updateMemberLastLogin(authentication.getName(), LocalDateTime.now());
+//         // memberRepository.updateMemberLastLogin(authentication.getName(), LocalDateTime.now());
 
-        setDefaultTargetUrl("/");
+//         setDefaultTargetUrl("/");
 
-        super.onAuthenticationSuccess(request, response, authentication);
-    }
+//         super.onAuthenticationSuccess(request, response, authentication);
+//     }
 
-}
+// }
