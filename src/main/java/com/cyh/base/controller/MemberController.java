@@ -1,53 +1,61 @@
-// package com.cyh.base.controller;
+package com.cyh.base.controller;
 
-// import com.cyh.base.dto.TestVO;
-// import com.cyh.base.dto.TokenInfo;
+import com.cyh.base.dto.TestVO;
+import com.cyh.base.dto.TokenInfo;
+import com.cyh.base.dto.UserDto;
 // import com.cyh.base.service.MemberService;
-// import com.cyh.base.validate.SampleValidates;
-// import lombok.extern.slf4j.Slf4j;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.http.HttpHeaders;
-// import org.springframework.http.ResponseEntity;
+import com.cyh.base.validate.SampleValidates;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 // import org.springframework.security.core.Authentication;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.validation.BindingResult;
-// import org.springframework.validation.annotation.Validated;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
-// import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 // import javax.servlet.http.HttpServletRequest;
-// import java.util.List;
-// import java.util.stream.Collectors;
+import java.util.List;
+import java.util.stream.Collectors;
 
-// @Slf4j
-// @Controller
-// public class MemberController {
+@Slf4j
+@Controller
+public class MemberController {
 
-//     @Autowired
-//     private MemberService memberService;
+    // @Autowired
+    // private MemberService memberService;
 
-//     @GetMapping("/login")
-//     public String getLoginPage(Model model,
-//                                @RequestParam(value = "error", required = false) String error,
-//                                @RequestParam(value = "exception", required = false) String exception) {
-//         model.addAttribute("error", error);
-//         model.addAttribute("exception", exception);
-//         return "/member/login";
-//     }
+    // @GetMapping("/login")
+    // public String getLoginPage(Model model,
+    //                            @RequestParam(value = "error", required = false) String error,
+    //                            @RequestParam(value = "exception", required = false) String exception) {
+    //     model.addAttribute("error", error);
+    //     model.addAttribute("exception", exception);
+    //     return "/member/login";
+    // }
 
-//     @PostMapping("/login/action")
-//     @ResponseBody
-//     public ResponseEntity<?> login(@RequestParam(value = "username", required = false) String username,
-//                            @RequestParam(value = "password", required = false) String password) {
-//         TokenInfo tokenInfo = memberService.login(username, password);
-//         HttpHeaders header = new HttpHeaders();
-// //        header.add(" ",""+tokenInfo.getAccessToken());
-// //        log.debug();
-//         return ResponseEntity.ok().headers(header).body(tokenInfo);
-//     }
+    @PostMapping("/api/login/proc")
+    @ResponseBody
+    public ResponseEntity<?> loginProc(
+                                // @RequestParam(value = "userId", required = true) String userId,
+                                // @RequestParam(value = "password", required = true) String password
+                                @RequestBody UserDto userDto
+                            ) {
+                                
+        // TokenInfo tokenInfo = memberService.login(username, password);
+        
+        TokenInfo tokenInfo = new TokenInfo("t", userDto.getUserId(), userDto.getPassword());
+        HttpHeaders header = new HttpHeaders();
+        header.add(" ",""+tokenInfo.getAccessToken());
+//        log.debug();
+        return ResponseEntity.ok().headers(header).body(tokenInfo);
+    }
 
 //     @GetMapping("/api/hello")
 //     @ResponseBody
@@ -94,4 +102,4 @@
 //         returnData = ResponseEntity.ok().body("success");
 //         return returnData;
 //     }
-// }
+}
