@@ -1,33 +1,34 @@
-// package com.cyh.base.handler;
+package com.cyh.base.handler;
 
-// import com.cyh.base.entity.MemberRepository;
-// import lombok.RequiredArgsConstructor;
-// import org.springframework.security.core.Authentication;
-// import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-// import org.springframework.stereotype.Component;
 
-// import javax.servlet.ServletException;
-// import javax.servlet.http.HttpServletRequest;
-// import javax.servlet.http.HttpServletResponse;
-// import java.io.IOException;
-// import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
-// @RequiredArgsConstructor
-// @Component
-// public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
-//     private final MemberRepository memberRepository;
+@RequiredArgsConstructor
+@Component
+public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-//     @Override
-//     public void onAuthenticationSuccess(
-//             HttpServletRequest request,
-//             HttpServletResponse response,
-//             Authentication authentication) throws IOException, ServletException {
-//         memberRepository.updateMemberLastLogin(authentication.getName(), LocalDateTime.now());
 
-//         setDefaultTargetUrl("/");
 
-//         super.onAuthenticationSuccess(request, response, authentication);
-//     }
+    @Override
+    public void onAuthenticationSuccess(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Authentication authentication) throws IOException, ServletException {
 
-// }
+        // memberRepository.updateMemberLastLogin(authentication.getName(), LocalDateTime.now());
+
+        setDefaultTargetUrl("/");
+
+        super.onAuthenticationSuccess(request, response, authentication);
+    }
+
+}

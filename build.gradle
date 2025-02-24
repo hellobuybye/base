@@ -27,19 +27,19 @@ repositories {
 dependencies {
 
 	// JWT
-    // implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-    // implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    // implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     // jsp
 	// implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
 
     // DB - mysql
     // implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.12'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework:spring-jdbc'
     // implementation 'mysql:mysql-connector-java'
 	// runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
 	// DB - postgresql
 	implementation 'org.postgresql:postgresql:42.6.0'
@@ -54,7 +54,7 @@ dependencies {
 
     // Springboot
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
-    // implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter'
 
