@@ -1,9 +1,11 @@
 package com.cyh.base.dto;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.cyh.base.validate.SampleValidates;
 import lombok.Getter;
@@ -20,6 +22,9 @@ public class UserDto extends BaseDto implements UserDetails{
     private String userId;
     // @NotEmpty(groups = SampleValidates.Group1.class, message = "test message 22")
     private String password;
+
+    private String hashedPassword;
+
 
     // 계정의 권한목록을 리턴
     @Override
@@ -68,6 +73,13 @@ public class UserDto extends BaseDto implements UserDetails{
         return true;
     }
 
-    
+    public void setPassword(String password){
+        
+        // 보안상 평문암호는 담지 않는게 좋다고 함
+        // this.password = password;
+        
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();        
+        setHashedPassword(encoder.encode(password));
+    }
 
 }

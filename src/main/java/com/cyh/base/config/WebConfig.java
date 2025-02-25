@@ -27,17 +27,17 @@ public class WebConfig implements WebMvcConfigurer {
                 .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-       registry.addMapping("/**").allowedOrigins("http://localhost:8080");
-    //     registry.addMapping("/**").allowedOrigins("*");
+   //  @Override
+   //  public void addCorsMappings(CorsRegistry registry) {
+   //    // registry.addMapping("/**").allowedOrigins("http://localhost:8080");
+   //    // registry.addMapping("/**").allowedOrigins("*");
 
-            // registry.addMapping("/**") // 모든 경로에 대해
-            //             .allowedOrigins("http://localhost:8080") // 허용할 클라이언트 도메인
-            //             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 허용할 HTTP 메서드
-            //             .allowedHeaders("*") // 모든 헤더 허용
-            //             .allowCredentials(true); // 쿠키 전송 허용
-    }
+   //          registry.addMapping("/**") // 모든 경로에 대해
+   //                      .allowedOrigins("http://localhost:8080") // 허용할 클라이언트 도메인
+   //                      .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 허용할 HTTP 메서드
+   //                      .allowedHeaders("*") // 모든 헤더 허용
+   //                      .allowCredentials(true); // 쿠키 전송 허용
+   //  }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

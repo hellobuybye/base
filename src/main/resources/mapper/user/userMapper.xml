@@ -18,21 +18,22 @@
     
 
     <!-- 로그인유저 조회 -->
-    <select id="selectLoginUser" parameterType="String">
+    <select id="selectLoginUser" parameterType="String" resultType="BoardDto">
     
 
         SELECT 
             idx,
-            subject,
-            content,
-            reg_id,
-            reg_dt 
+            
+            
+            user_id,
+            name            
         FROM
-            board
+            tb_user
         <where>
             del_yn = 'N'
+            AND user_id = #{userId}
         </where>
-        ORDER BY reg_dt DESC
+        
 
     
     </select>

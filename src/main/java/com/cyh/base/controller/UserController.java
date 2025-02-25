@@ -3,6 +3,7 @@ package com.cyh.base.controller;
 import com.cyh.base.dto.TestVO;
 import com.cyh.base.dto.TokenInfo;
 import com.cyh.base.dto.UserDto;
+import com.cyh.base.service.UserService;
 // import com.cyh.base.service.MemberService;
 import com.cyh.base.validate.SampleValidates;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +29,8 @@ import java.util.stream.Collectors;
 @Controller
 public class UserController {
 
-    // @Autowired
-    // private MemberService memberService;
+    @Autowired
+    private UserService userService;
 
     // @GetMapping("/login")
     // public String getLoginPage(Model model,
@@ -47,10 +48,8 @@ public class UserController {
                                 // @RequestParam(value = "password", required = true) String password
                                 @RequestBody UserDto userDto
                             ) {
-                                
-        // TokenInfo tokenInfo = memberService.login(username, password);
         
-        TokenInfo tokenInfo = new TokenInfo("t", userDto.getUserId(), userDto.getPassword());
+        TokenInfo tokenInfo = userService.login(userDto.getUserId(), userDto.getHashedPassword());
         HttpHeaders header = new HttpHeaders();
         header.add(" ",""+tokenInfo.getAccessToken());
 //        log.debug();

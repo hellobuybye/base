@@ -3,8 +3,8 @@ server:
   port: 9090
   shutdown: graceful
   
-# jwt:
-#   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+jwt:
+  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
 
 # logging:
 #   config: classpath:logback-api.xml
