@@ -49,7 +49,7 @@ public class UserController {
                                 @RequestBody UserDto userDto
                             ) {
         
-        TokenInfo tokenInfo = userService.login(userDto.getUserId(), userDto.getHashedPassword());
+        TokenInfo tokenInfo = userService.login(userDto.getUserId(), userDto.getPassword());
         HttpHeaders header = new HttpHeaders();
         header.add(" ",""+tokenInfo.getAccessToken());
 //        log.debug();

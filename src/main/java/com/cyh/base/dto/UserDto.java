@@ -2,8 +2,10 @@ package com.cyh.base.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -22,21 +24,26 @@ public class UserDto extends BaseDto implements UserDetails{
     private String userId;
     // @NotEmpty(groups = SampleValidates.Group1.class, message = "test message 22")
     private String password;
-
     private String hashedPassword;
+    
+    private String name;
+
+    
 
 
     // 계정의 권한목록을 리턴
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        Collection <GrantedAuthority> collector = new ArrayList<>();
+        // Collection <GrantedAuthority> collector = new ArrayList<>();
 
-        collector.add(() ->{
-            return "계정별 등록할 권한";
-        });
+        // collector.add(() ->{
+        //     return "계정별 등록할 권한";
+        // });
 
-        return collector;
+        // return collector;
+
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
@@ -49,10 +56,10 @@ public class UserDto extends BaseDto implements UserDetails{
         return this.userId;
     }
 
-    // 계정 만료여부 (true : 만료)
+    // 계정 만료여부 (true : 유효, false : 만료)
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     // 계정 잠금여부 (true : 잠기지 않음)
@@ -74,9 +81,8 @@ public class UserDto extends BaseDto implements UserDetails{
     }
 
     public void setPassword(String password){
-        
-        // 보안상 평문암호는 담지 않는게 좋다고 함
-        // this.password = password;
+                
+        this.password = password;
         
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();        
         setHashedPassword(encoder.encode(password));

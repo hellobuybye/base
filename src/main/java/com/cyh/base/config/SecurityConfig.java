@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -31,8 +32,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  */
 
 @RequiredArgsConstructor
+@Configuration
 @EnableWebSecurity // 시큐리티 필터 등록
-@EnableMethodSecurity(prePostEnabled = true)
+// @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     // private final UserService memberService;
@@ -48,14 +50,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))             
             .csrf(csrf -> csrf.disable())  // CSRF 비활성화
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/api/**").permitAll() // 모든 API 요청 허용
                 .requestMatchers("/login/**").permitAll()
                 // .anyRequest().authenticated()
             )
+            .formLogin(login -> login.disable()) // 기본 로그인 폼 비활성화
+            .httpBasic(httpBasic -> httpBasic.disable()) // HTTP 기본 인증 비활성화
             .exceptionHandling(exceptions -> exceptions
                 .authenticationEntryPoint((request, response, authException) ->
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
@@ -85,21 +88,4 @@ public class SecurityConfig {
 
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:8080"); // 허용할 클라이언트 도메인
-        configuration.addAllowedMethod("GET"); // 허용할 HTTP 메서드
-        configuration.addAllowedMethod("POST");
-        configuration.addAllowedMethod("PUT");
-        configuration.addAllowedMethod("DELETE");
-        configuration.addAllowedMethod("OPTIONS");
-        configuration.addAllowedHeader("*"); // 모든 헤더 허용
-        configuration.setAllowCredentials(true); // 쿠키 전송 허용
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // 모든 경로에 대해 설정
-
-        return source;
-    }
 }
