@@ -1,5 +1,7 @@
 package com.cyh.base.dto;
 
+import static java.util.Objects.isNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -84,8 +86,13 @@ public class UserDto extends BaseDto implements UserDetails{
                 
         this.password = password;
         
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();        
-        setHashedPassword(encoder.encode(password));
+        if( isNull(password) ){
+            this.setHashedPassword(null);
+        }else{
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();        
+            this.setHashedPassword(encoder.encode(password));
+        }
+        
     }
 
 }

@@ -1,15 +1,23 @@
 package com.cyh.base.controller;
 
+import com.cyh.base.dto.ApiResponse;
 import com.cyh.base.dto.TestVO;
 import com.cyh.base.dto.TokenInfo;
 import com.cyh.base.dto.UserDto;
 import com.cyh.base.service.UserService;
 // import com.cyh.base.service.MemberService;
 import com.cyh.base.validate.SampleValidates;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
 // import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,21 +33,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+
 @Slf4j
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    // @GetMapping("/login")
-    // public String getLoginPage(Model model,
-    //                            @RequestParam(value = "error", required = false) String error,
-    //                            @RequestParam(value = "exception", required = false) String exception) {
-    //     model.addAttribute("error", error);
-    //     model.addAttribute("exception", exception);
-    //     return "/member/login";
-    // }
 
     @PostMapping("/api/login/proc")
     @ResponseBody
@@ -49,12 +50,60 @@ public class UserController {
                                 @RequestBody UserDto userDto
                             ) {
         
-        TokenInfo tokenInfo = userService.login(userDto.getUserId(), userDto.getPassword());
-        HttpHeaders header = new HttpHeaders();
-        header.add(" ",""+tokenInfo.getAccessToken());
-//        log.debug();
-        return ResponseEntity.ok().headers(header).body(tokenInfo);
+        TokenInfo tokenInfo = null;
+        
+        
+        try {
+            tokenInfo = userService.login(userDto.getUserId(), userDto.getPassword());
+        } catch (BadCredentialsException  e) {
+            log.error("Authentication failed: {}", e.getMessage());
+            // ApiResponse<String> res = ApiResponse.<String>builder().code("401").body("LoginFail").build();
+            // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("LOGIN_001");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        
+        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", tokenInfo.getRefreshToken())
+            .httpOnly(true) // JavaScript에서 접근 불가
+            // .secure(true) // HTTPS에서만 전송 (운영 환경에서 적용)
+            .path("/") // 모든 경로에서 접근 가능
+            // .maxAge(60 * 60 * 24 * 7) // 7일 유지            
+            .maxAge(30) // 30초 유지            
+            .build();
+
+        headers.add("Set-Cookie", refreshTokenCookie.toString());
+        
+        return ResponseEntity.ok().headers(headers).body(tokenInfo);
     }
+
+    @PostMapping("/api/login/refresh")
+    public ResponseEntity<?> refreshAccessToken(HttpServletRequest request) {
+        String refreshToken = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("refreshToken".equals(cookie.getName())) {
+                    refreshToken = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+
+        TokenInfo newTokenInfo = userService.refreshAccessToken(refreshToken);
+    
+        HttpHeaders headers = new HttpHeaders();
+        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", newTokenInfo.getRefreshToken())
+            .httpOnly(true)
+            // .secure(true) // HTTPS에서만 전송 (운영 환경에서 적용)
+            .path("/")
+            // .maxAge(60 * 60 * 24 * 7) // 7일 유지       
+            .maxAge(30)  // 30초
+            .build();
+        headers.add("Set-Cookie", refreshTokenCookie.toString());
+
+        return ResponseEntity.ok().headers(headers).body(newTokenInfo);
+}
 
 //     @GetMapping("/api/hello")
 //     @ResponseBody

@@ -4,6 +4,9 @@ import com.cyh.base.dto.TestVO;
 import com.cyh.base.dto.TokenInfo;
 import com.cyh.base.dto.UserDto;
 import com.cyh.base.mapper.UserMapper;
+
+import io.jsonwebtoken.Claims;
+
 import com.cyh.base.config.JwtTokenProvider;
 // import com.cyh.base.entity.Member;
 // import com.cyh.base.entity.MemberRepository;
@@ -11,10 +14,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 // import javax.validation.Valid;
 
 import static java.util.Objects.isNull;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -69,13 +78,47 @@ public class UserService implements UserDetailsService {
             authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken); // 인증 수행
         } catch (AuthenticationException e) {
             log.error("Authentication failed: {}", e.getMessage());
-            throw new RuntimeException("Authentication failed");
+            throw new BadCredentialsException("Authentication failed");
         }
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
         TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
 
+        // 4. 사용자 정보 함께 반환
+        UserDto user = (UserDto) authentication.getPrincipal();        
+        user.setPassword(null);        
+        tokenInfo.setUser(user);
+
         return tokenInfo;
+    }
+
+    public TokenInfo refreshAccessToken(String refreshToken){
+        // 1. 리프레시 토큰 검증
+        if (isNull(refreshToken) || !jwtTokenProvider.validateToken(refreshToken)) {
+            throw new RuntimeException("Invalid or expired refresh token");
+        }
+
+        // 2. 리프레시 토큰을 통해 Authentication 객체 얻기
+        // Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken);
+        
+        Claims claims = jwtTokenProvider.parseClaims(refreshToken);
+        // Authentication authentication = new UsernamePasswordAuthenticationToken(claims.getSubject(), "", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+
+        // UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(claims.getSubject(), "");
+        Authentication authentication = null;
+        try {
+            // authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken); // 인증 수행
+            authentication = new UsernamePasswordAuthenticationToken(claims.getSubject(), "", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        } catch (AuthenticationException e) {
+            log.error("Authentication failed: {}", e.getMessage());
+            throw new BadCredentialsException("Authentication failed");
+        }
+        
+        // 3. 새로운 액세스 토큰과 리프레시 토큰 생성
+        TokenInfo newTokenInfo = jwtTokenProvider.generateToken(authentication);
+        
+        return newTokenInfo;
+
     }
 
     

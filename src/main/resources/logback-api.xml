@@ -24,14 +24,35 @@
 
 
 
-    <springProfile name="local">
+    <!-- <springProfile name="local">
         <logger name="jdbc" level="OFF"/>
         <logger name="jdbc.sqlonly" level="OFF"/>
         <logger name="jdbc.sqltiming" level="DEBUG"/>
         <logger name="jdbc.audit" level="OFF"/>
         <logger name="jdbc.resultset" level="OFF"/>
         <logger name="jdbc.resultsettable" level="DEBUG"/>
-        <logger name="jdbc.connection" level="OFF"/>
+        <logger name="jdbc.connection" level="OFF"/> -->
+
+<!--        <logger name="com.example.practice.mapper" additivity="false" level='debug'>-->
+<!--            <appender-ref ref="COLOR_STDOUT" />-->
+<!--        </logger>-->
+        <!-- <logger name="com.example" additivity="false" level="debug">
+            <appender-ref ref="COLOR_STDOUT" />
+        </logger>
+
+        <root level="info">
+            <appender-ref ref="COLOR_STDOUT" />
+        </root>
+    </springProfile> -->
+
+    <springProfile name="local">
+        <logger name="log4jdbc" level="OFF"/>
+        <logger name="log4jdbc.sqlonly" level="OFF"/>
+        <logger name="log4jdbc.sqltiming" level="DEBUG"/>
+        <logger name="log4jdbc.audit" level="OFF"/>
+        <logger name="log4jdbc.resultset" level="OFF"/>
+        <logger name="log4jdbc.resultsettable" level="DEBUG"/>
+        <logger name="log4jdbc.connection" level="OFF"/>
 
 <!--        <logger name="com.example.practice.mapper" additivity="false" level='debug'>-->
 <!--            <appender-ref ref="COLOR_STDOUT" />-->

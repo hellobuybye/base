@@ -46,7 +46,8 @@ public class JwtTokenProvider {
 
         long now = (new Date()).getTime();
         // Access Token 생성
-        Date accessTokenExpiresIn = new Date(now + 86400000);   // 86400000 (1일)
+        // Date accessTokenExpiresIn = new Date(now + 1000 * 60 * 60 * 1 * 1);   // 1시간
+        Date accessTokenExpiresIn = new Date(now + 1000 * 20 * 1 * 1 );   // 20 초
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
@@ -56,7 +57,8 @@ public class JwtTokenProvider {
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date(now + 86400000))
+                .setSubject(authentication.getName())
+                .setExpiration(new Date(now + 1000 * 60 * 30 * 1 * 1)) // 30초
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
@@ -104,7 +106,7 @@ public class JwtTokenProvider {
         return false;
     }
 
-    private Claims parseClaims(String accessToken) {
+    public Claims parseClaims(String accessToken) {
         try {
             return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
         } catch (ExpiredJwtException e) {
