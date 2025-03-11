@@ -39,7 +39,7 @@ public class SecurityConfig {
 
     // private final UserService memberService;
 
-    // private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public BCryptPasswordEncoder encryptPassword() {
@@ -53,17 +53,18 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())  // CSRF 비활성화
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll() // 모든 API 요청 허용
-                .requestMatchers("/login/**").permitAll()
-                // .anyRequest().authenticated()
+                .requestMatchers("/api/public/**").permitAll() // API 요청 허용
+                .requestMatchers("/api/login/**").permitAll()
+                .requestMatchers("/error").permitAll()
+                .anyRequest().authenticated()
             )
             .formLogin(login -> login.disable()) // 기본 로그인 폼 비활성화
             .httpBasic(httpBasic -> httpBasic.disable()) // HTTP 기본 인증 비활성화
             .exceptionHandling(exceptions -> exceptions
                 .authenticationEntryPoint((request, response, authException) ->
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
-            );
-            // .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+            )
+            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
             
             
 
