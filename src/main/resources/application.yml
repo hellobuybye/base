@@ -67,7 +67,13 @@ spring :
         url : jdbc:log4jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres
         username : "postgres.mngfzhpcgrcbciwhfdfr"
         password : "##Rhdiddl03"
-
+        hikari:
+          minimum-idle: 5        # 최소 유지할 커넥션 개수
+          maximum-pool-size: 10  # 최대 커넥션 개수
+          idle-timeout: 30000    # 커넥션이 유휴 상태일 때 제거되기까지의 시간 (30초)
+          max-lifetime: 1800000  # 커넥션 최대 수명 (30분)
+          connection-timeout: 30000 # 커넥션을 얻을 때까지 기다리는 최대 시간 (30초)
+          auto-commit: true      # 자동 커밋 여부
 ---
 
 
