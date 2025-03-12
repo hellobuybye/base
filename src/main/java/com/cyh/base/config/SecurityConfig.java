@@ -55,6 +55,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/public/**").permitAll() // API 요청 허용
                 .requestMatchers("/api/login/**").permitAll()
+                .requestMatchers("/api/logout").permitAll()
                 .requestMatchers("/error").permitAll()
                 .anyRequest().authenticated()
             )

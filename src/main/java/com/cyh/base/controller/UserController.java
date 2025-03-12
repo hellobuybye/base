@@ -8,8 +8,10 @@ import com.cyh.base.service.UserService;
 // import com.cyh.base.service.MemberService;
 import com.cyh.base.validate.SampleValidates;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -56,10 +58,8 @@ public class UserController {
         try {
             tokenInfo = userService.login(userDto.getUserId(), userDto.getPassword());
         } catch (BadCredentialsException  e) {
-            log.error("Authentication failed: {}", e.getMessage());
-            // ApiResponse<String> res = ApiResponse.<String>builder().code("401").body("LoginFail").build();
-            // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("LOGIN_001");
+            log.error("Authentication failed: {}", e.getMessage());            
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("AUTH_FAIL");
         }
         HttpHeaders headers = new HttpHeaders();
         
@@ -67,11 +67,10 @@ public class UserController {
             .httpOnly(true) // JavaScript에서 접근 불가
             // .secure(true) // HTTPS에서만 전송 (운영 환경에서 적용)
             .path("/") // 모든 경로에서 접근 가능
-            // .maxAge(60 * 60 * 24 * 7) // 7일 유지            
-            .maxAge(30) // 30초 유지            
+            .maxAge(60 * 60 * 24 * 7) // 7일 유지                             
             .build();
 
-        headers.add("Set-Cookie", refreshTokenCookie.toString());
+        headers.add(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
         
         return ResponseEntity.ok().headers(headers).body(tokenInfo);
     }
@@ -88,21 +87,50 @@ public class UserController {
                 }
             }
         }
+        // httponly 쿠키값인 refresh token은 쿠키 기간 만료된 경우 못가져옴
+        
 
 
-        TokenInfo newTokenInfo = userService.refreshAccessToken(refreshToken);
+        TokenInfo newTokenInfo = null;
+        try {
+            newTokenInfo = userService.refreshAccessToken(refreshToken);
+        } catch (BadCredentialsException e) {   
+            // No로그인 or expired token
+            log.error("Authentication failed: {}", e.getMessage());            
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("NO_TOKEN");
+        } catch(JwtException e){
+            log.error("Authentication failed: {}", e.getMessage());            
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("INVALID_TOKEN");
+        }
     
         HttpHeaders headers = new HttpHeaders();
         ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", newTokenInfo.getRefreshToken())
             .httpOnly(true)
             // .secure(true) // HTTPS에서만 전송 (운영 환경에서 적용)
             .path("/")
-            // .maxAge(60 * 60 * 24 * 7) // 7일 유지       
-            .maxAge(30)  // 30초
+            .maxAge(60 * 60 * 24 * 7) // 7일 유지                   
             .build();
-        headers.add("Set-Cookie", refreshTokenCookie.toString());
+        headers.add(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
 
         return ResponseEntity.ok().headers(headers).body(newTokenInfo);
+}
+
+    
+@PostMapping("/api/logout")
+public ResponseEntity<?> logout() {
+
+        HttpHeaders headers = new HttpHeaders();
+        ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")
+            .httpOnly(true)
+            .secure(true)
+            .path("/")
+            .maxAge(0) // 즉시 만료 처리
+            .sameSite("Strict")
+            .build();
+
+        headers.add(HttpHeaders.SET_COOKIE, deleteCookie.toString());        
+
+        return ResponseEntity.ok().headers(headers).body(null);        
 }
 
 //     @GetMapping("/api/hello")

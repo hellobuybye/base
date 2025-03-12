@@ -47,18 +47,18 @@ public class JwtTokenProvider {
         long now = (new Date()).getTime();
         // Access Token 생성
         // Date accessTokenExpiresIn = new Date(now + 1000 * 60 * 60 * 1 * 1);   // 1시간
-        Date accessTokenExpiresIn = new Date(now + 1000 * 20 * 1 * 1 );   // 20 초
+        
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
-                .setExpiration(accessTokenExpiresIn)
+                .setExpiration(new Date(now + 1000 * 60 * 60 * 1 * 1)) // 1시간
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
-                .setExpiration(new Date(now + 1000 * 60 * 30 * 1 * 1)) // 30초
+                .setExpiration(new Date(now + 1000 * 60 * 60 * 24 * 1)) // 1일
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 

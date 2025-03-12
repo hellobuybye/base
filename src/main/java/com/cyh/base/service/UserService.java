@@ -6,6 +6,8 @@ import com.cyh.base.dto.UserDto;
 import com.cyh.base.mapper.UserMapper;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import jakarta.security.auth.message.AuthException;
 
 import com.cyh.base.config.JwtTokenProvider;
 // import com.cyh.base.entity.Member;
@@ -94,28 +96,38 @@ public class UserService implements UserDetailsService {
 
     public TokenInfo refreshAccessToken(String refreshToken){
         // 1. 리프레시 토큰 검증
-        if (isNull(refreshToken) || !jwtTokenProvider.validateToken(refreshToken)) {
-            throw new RuntimeException("Invalid or expired refresh token");
+        if (isNull(refreshToken) ) {
+            throw new BadCredentialsException("empty refresh token");
+        }
+
+        if(!jwtTokenProvider.validateToken(refreshToken)){
+            throw new JwtException("invalid refresh token");
         }
 
         // 2. 리프레시 토큰을 통해 Authentication 객체 얻기
         // Authentication authentication = jwtTokenProvider.getAuthentication(refreshToken);
         
-        Claims claims = jwtTokenProvider.parseClaims(refreshToken);
-        // Authentication authentication = new UsernamePasswordAuthenticationToken(claims.getSubject(), "", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        Claims claims = jwtTokenProvider.parseClaims(refreshToken);        
+        UserDto user = (UserDto)loadUserByUsername(claims.getSubject());
+        
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
         // UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(claims.getSubject(), "");
-        Authentication authentication = null;
-        try {
-            // authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken); // 인증 수행
-            authentication = new UsernamePasswordAuthenticationToken(claims.getSubject(), "", List.of(new SimpleGrantedAuthority("ROLE_USER")));
-        } catch (AuthenticationException e) {
-            log.error("Authentication failed: {}", e.getMessage());
-            throw new BadCredentialsException("Authentication failed");
-        }
+        // Authentication authentication = null;         
+        // Authentication authentication2 = null;
+        // try {
+        //     authentication2 = authenticationManagerBuilder.getObject().authenticate(authentication); // 인증 수행
+        // } catch (AuthenticationException e) {
+        //     log.error("Authentication failed: {}", e.getMessage());
+        //     throw new BadCredentialsException("Authentication failed");
+        // }
         
         // 3. 새로운 액세스 토큰과 리프레시 토큰 생성
         TokenInfo newTokenInfo = jwtTokenProvider.generateToken(authentication);
+
+        // // 4. 사용자 정보 함께 반환        
+        user.setPassword(null);        
+        newTokenInfo.setUser(user);
         
         return newTokenInfo;
 
